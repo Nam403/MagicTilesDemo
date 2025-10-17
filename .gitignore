@@ -56,3 +56,5 @@ sysinfo.txt
 *.dotCover
 *.dotTrace
 *.dotMemory
+
+.vs

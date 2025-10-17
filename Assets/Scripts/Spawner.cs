@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public static Spawner Instance;
+    [SerializeField] float initCountDown = 1f;
     [SerializeField] float spawnStepTime = 0.7f;
     [SerializeField] Tile tilePrefab;
     [SerializeField] float xStep = 2.3f;
@@ -30,6 +31,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnRoutine()
     {
+        yield return new WaitForSeconds(initCountDown);
         while (true)
         {
             randomId = Random.Range(0, 4);

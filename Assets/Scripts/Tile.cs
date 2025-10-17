@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public class Tile : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 10f;
     private Vector3 destinationPosition = new(0f, -24f, 0f);
     private Vector3 currentPosition;
 
@@ -25,6 +25,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Click");
+        ScoreManager.Instance.UpdateScore(1);
         Destroy(gameObject);
     }
 }
