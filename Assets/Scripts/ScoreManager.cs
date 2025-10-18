@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +12,13 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Image processBar;
     [SerializeField] GameObject star;
+    [SerializeField] TextMeshProUGUI timingTapText;
+
+    [SerializeField] int goodTapBonus = 1;
+    [SerializeField] int perfectTapBonus = 2;
+    [SerializeField] int point = 1;
+    [SerializeField] int bonus = 10;
+    int combo;
 
     private void Awake()
     {
@@ -24,31 +30,77 @@ public class ScoreManager : MonoBehaviour
         Instance = this;
     }
 
+    void OnEnable()
+    {
+        SoundManager.SongEnd += UpdateHighestScore;
+        Border.GameOver += UpdateHighestScore;
+        TimingBar.GoodTap += HandleGoodTap;
+        TimingBar.MissTap += HandleMissTap;
+        TimingBar.PerfectTap += HandlePerfectTap;
+    }
+    void OnDisable()
+    {
+        SoundManager.SongEnd -= UpdateHighestScore;
+        Border.GameOver -= UpdateHighestScore;
+        TimingBar.GoodTap -= HandleGoodTap;
+        TimingBar.MissTap -= HandleMissTap;
+        TimingBar.PerfectTap -= HandlePerfectTap;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         Score = 0;
-    }
-
-    public void SetUp(int target)
-    {
-        Target = target;
-    }
-
-    public void UpdateScore(int amount)
-    {
-        Score += amount;
+        combo = 0;
+        Target = PlayerPrefs.GetInt("HighScore", 0);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(combo >= bonus) // Get bonus
+        {
+            // Reset combo
+            Score += bonus;
+            combo -= bonus;
+        }
+
         scoreText.text = Score.ToString();
         processBar.fillAmount = (Score * 1f) / (Target * 1f);
 
-        if(Score == Target)
+        if(Score == Target + 1)
         {
             star.SetActive(true);
         }
+    }
+
+    public void UpdateHighestScore()
+    {
+        if(Score > Target)
+        {
+            PlayerPrefs.SetInt("HighScore", Score);
+            PlayerPrefs.Save();
+        }
+    }
+
+    void HandleGoodTap()
+    {
+        Score += point;
+        timingTapText.text = "Good";
+        combo += goodTapBonus;
+    }
+
+    void HandleMissTap()
+    {
+        Score += point;
+        timingTapText.text = "Miss";
+        combo = 0; // Reset combo
+    }
+
+    void HandlePerfectTap()
+    {
+        Score += point * 2;
+        timingTapText.text = "Perfect";
+        combo += perfectTapBonus;
     }
 }

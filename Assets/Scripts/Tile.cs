@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 using System.Collections;
+using System;
 
 public class Tile : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private Sprite clickSprite;
-    [SerializeField] private float clickDelayTime = 0.25f;
-    private Vector3 destinationPosition = new(0f, -24f, 0f);
-    private Vector3 currentPosition;
+    public static event Action<Vector3> TileTap;
+
+    [SerializeField] float speed = 10f;
+    [SerializeField] Sprite clickSprite;
+    [SerializeField] float clickDelayTime = 0.25f;
+    Vector3 destinationPosition = new(0f, -24f, 0f);
+    Vector3 currentPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +30,11 @@ public class Tile : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Click");
-        ScoreManager.Instance.UpdateScore(1);
-        StartCoroutine(ChangeColorAndDestroy());
+        TileTap?.Invoke(transform.position);
+        StartCoroutine(TapFeedbackAndDestroy());
     }
 
-    IEnumerator ChangeColorAndDestroy()
+    IEnumerator TapFeedbackAndDestroy()
     {
         // Change Color
         SpriteRenderer rend = GetComponent<SpriteRenderer>();
@@ -41,8 +43,21 @@ public class Tile : MonoBehaviour, IPointerClickHandler
             rend.sprite = clickSprite;
         }
 
-        // Wait for delay
-        yield return new WaitForSeconds(clickDelayTime);
+        // Fading effect
+        Vector3 originalScale = transform.localScale;
+        Color startColor = GetComponent<SpriteRenderer>().color;
+        float startAlpha = startColor.a;
+        float time = 0f;
+        float alpha;
+
+        while (time < clickDelayTime)
+        {
+            transform.localScale = Vector3.Lerp(originalScale, originalScale * 1.2f, time / clickDelayTime);
+            alpha = Mathf.Lerp(startAlpha, 0f, time / clickDelayTime);
+            GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+            time += Time.deltaTime;
+            yield return null;
+        }
 
         // Destroy object
         Destroy(gameObject);

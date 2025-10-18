@@ -1,7 +1,10 @@
 using UnityEngine;
+using System;
 
 public class Border : MonoBehaviour
 {
+    public static event Action GameOver;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,7 @@ public class Border : MonoBehaviour
         if (collider.gameObject.CompareTag("Tile"))
         {
             Debug.Log("Game Over");
-            GameManager.Instance.EndGame();
+            GameOver?.Invoke();
             Destroy(collider.gameObject);
         }
     }

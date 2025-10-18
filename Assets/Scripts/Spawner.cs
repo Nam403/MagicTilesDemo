@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     public static Spawner Instance;
-    [SerializeField] private Tile tilePrefab;
-    [SerializeField] private float xStep = 2.3f;
-    [SerializeField] private Vector3 initTilePosition = new(-3.45f, 12f, 0);
+    [SerializeField] Tile tilePrefab;
+    [SerializeField] float xStep = 2.3f;
+    [SerializeField] Vector3 initTilePosition = new(-3.45f, 12f, 0);
     
     Vector3 stepVector = new Vector3(1f, 0f, 0f);
-    private void Awake()
+    void Awake()
     {
         if (Instance != null)
         {
@@ -21,6 +17,9 @@ public class Spawner : MonoBehaviour
         }
         Instance = this;
     }
+
+    void OnEnable() => SoundManager.BeatDetection += SpawnTile;
+    void OnDisable() => SoundManager.BeatDetection -= SpawnTile;
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +31,6 @@ public class Spawner : MonoBehaviour
     void Update()
     {
     }
-
-    void OnEnable() => BeatDetector.BeatDetection += SpawnTile;
-    void OnDisable() => BeatDetector.BeatDetection -= SpawnTile;
 
     void SpawnTile(float sum, float threshold)
     {

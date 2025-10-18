@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -19,11 +17,21 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    void OnEnable()
+    {
+        SoundManager.SongEnd += CompleteSong;
+        Border.GameOver += EndGame;
+    } 
+    void OnDisable()
+    {
+        SoundManager.SongEnd -= CompleteSong;
+        Border.GameOver -= EndGame;
+    } 
+
     // Start is called before the first frame update
     void Start()
     {
         GameIsOver = false;
-        ScoreManager.Instance.SetUp(100);
     }
 
     // Update is called once per frame

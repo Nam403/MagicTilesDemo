@@ -1,12 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    [SerializeField] private Vector3 targetScale = new Vector3(0.6f, 0.6f, 1f);
-    [SerializeField] private float duration = 0.5f;
-    private float scaleFactor = 1f;
+    [SerializeField] Vector3 targetScale = new Vector3(0.6f, 0.6f, 1f);
+    [SerializeField] float duration = 0.5f;
+    float scaleFactor = 1f;
+
+    void OnEnable() => SoundManager.BeatDetection += BeatHandle;
+    void OnDisable() => SoundManager.BeatDetection -= BeatHandle;
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +21,6 @@ public class Note : MonoBehaviour
     {
         
     }
-
-    void OnEnable() => BeatDetector.BeatDetection += BeatHandle;
-    void OnDisable() => BeatDetector.BeatDetection -= BeatHandle;
 
     public void BeatHandle(float sum, float threshold)
     {
