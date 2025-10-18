@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameIsOver = false;
-        ScoreManager.Instance.SetUp(120);
+        ScoreManager.Instance.SetUp(100);
     }
 
     // Update is called once per frame
@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
     public void CompleteSong()
     {
         GameIsOver = false;
-        Time.timeScale = 0f;
         completeSongUI.SetActive(true);
     }
 

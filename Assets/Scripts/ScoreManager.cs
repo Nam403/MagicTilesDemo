@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Image processBar;
+    [SerializeField] GameObject star;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class ScoreManager : MonoBehaviour
 
         if(Score == Target)
         {
-            GameManager.Instance.CompleteSong();
+            star.SetActive(true);
         }
     }
 }

@@ -1,10 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using System.Collections;
 
 public class Tile : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private float speed = 10f;
+    [SerializeField] private Sprite clickSprite;
+    [SerializeField] private float clickDelayTime = 0.25f;
     private Vector3 destinationPosition = new(0f, -24f, 0f);
     private Vector3 currentPosition;
 
@@ -26,6 +29,22 @@ public class Tile : MonoBehaviour, IPointerClickHandler
     {
         Debug.Log("Click");
         ScoreManager.Instance.UpdateScore(1);
+        StartCoroutine(ChangeColorAndDestroy());
+    }
+
+    IEnumerator ChangeColorAndDestroy()
+    {
+        // Change Color
+        SpriteRenderer rend = GetComponent<SpriteRenderer>();
+        if (rend != null)
+        {
+            rend.sprite = clickSprite;
+        }
+
+        // Wait for delay
+        yield return new WaitForSeconds(clickDelayTime);
+
+        // Destroy object
         Destroy(gameObject);
     }
 }

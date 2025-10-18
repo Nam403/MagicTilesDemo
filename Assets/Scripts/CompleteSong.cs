@@ -19,13 +19,11 @@ public class CompleteSong : MonoBehaviour
 
     public void Replay()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadScene("MainScene");
     }
 
     public void Menu()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadScene("MenuScene");
     }
 }
