@@ -41,9 +41,9 @@ public class TimingBar : MonoBehaviour
         timer += Time.deltaTime;
     }
 
-    void HandleTileTap(Vector3 tilePosition)
+    void HandleTileTap(GameObject obj)
     {
-        float distinct = tilePosition.y - transform.position.y;
+        float distinct = obj.transform.position.y - transform.position.y;
         if(distinct > 1)
         {
             // Good tap

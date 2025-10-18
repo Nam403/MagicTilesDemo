@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager Instance { get; private set; }
     public static event Action<float, float> BeatDetection;
     public static event Action SongEnd;
 
@@ -16,6 +17,16 @@ public class SoundManager : MonoBehaviour
     float[] spectrum = new float[64];
     float timer = 0f;
 
+    void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.Log("More than one SoundManager in scene!");
+            return;
+        }
+        Instance = this;
+    }
+
     void OnEnable()
     {
         TimingBar.GoodTap += PlayGoodTapSound;
@@ -27,11 +38,6 @@ public class SoundManager : MonoBehaviour
         TimingBar.GoodTap -= PlayGoodTapSound;
         TimingBar.MissTap -= PlayMissTapSound;
         TimingBar.PerfectTap -= PlayPerfectTapSound;
-    }
-
-    void Start()
-    {
-
     }
 
     void Update()

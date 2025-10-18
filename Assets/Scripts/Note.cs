@@ -10,18 +10,6 @@ public class Note : MonoBehaviour
     void OnEnable() => SoundManager.BeatDetection += BeatHandle;
     void OnDisable() => SoundManager.BeatDetection -= BeatHandle;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void BeatHandle(float sum, float threshold)
     {
         scaleFactor = 1f + sum / threshold / 5;

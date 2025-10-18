@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
     public static bool GameIsOver;
     [SerializeField] GameObject completeSongUI;
     [SerializeField] GameObject gameOverUI;
 
-    private void Awake()
-    {
+    void Awake()
+    {      
         if (Instance != null)
         {
             Debug.Log("More than one GameManager in scene!");
