@@ -68,7 +68,7 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = Score.ToString();
         processBar.fillAmount = (Score * 1f) / (Target * 1f);
 
-        if(Score == Target + 1)
+        if(Score > Target && !star.activeSelf)
         {
             star.SetActive(true);
         }
