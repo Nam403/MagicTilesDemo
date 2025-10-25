@@ -11,7 +11,7 @@
 * Unity Version: 2021.3.45f2. Please open it with the same or a compatible version.
 * Target platform: Android
 * Open Project: Clone or download this repository, then open it in Unity Hub.
-* Run the Scene: Can be run directly from the main screen or run indirectly from the menu screen.
+* Run the Scene: Can be run directly from the main scene or run indirectly from the menu scene.
 * Note: the test file is available at the link: https://drive.google.com/file/d/1K50tzIdNpnd3D3ZTZv7ALDMbUQSHpioK/view?usp=sharing
 
 
@@ -22,7 +22,7 @@
 * Applied the Singleton design pattern to ensure global access to manager instances.
 * Implemented a simple beat detection technique to spawn tiles in sync with background music.
 * Used event/delegate to follow the Observer design pattern, enabling decoupled communication between components.
-* Integrated Object Pooling to efficiently reuse objects, improving performance. 
+* Integrated Object Pooling to efficiently reuse objects, improving performance.
 
 
 
@@ -36,9 +36,9 @@ Brackeys's Github: https://github.com/Brackeys
 
 \## Folder Structure:
 
-Assets/ 
+Assets/
 
-|-- Scripts/  
+|-- Scripts/
 
 | |-- Managers/
 
@@ -74,17 +74,17 @@ Assets/
 
 | | |-- Menu.cs
 
-|-- Prefabs/  
+|-- Prefabs/
 
 | |-- Tile.prefab
 
 | |-- TileEffect.prefab
 
-|-- Scenes/ 
+|-- Scenes/
 
-| |-- Menu.unity
+| |-- MenuScene.unity
 
-| |-- Main.unity
+| |-- MainScene.unity
 
 
 
