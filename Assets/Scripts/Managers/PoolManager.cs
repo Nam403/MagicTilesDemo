@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance { get; private set; }
 
-    [SerializeField] GameObject objectPrefab;
-    [SerializeField] GameObject effectPrefab;
+    [SerializeField] private AssetLabelReference objectLabel;
+    [SerializeField] private AssetLabelReference effectLabel;
     [SerializeField] int poolSize = 20;
 
     Queue<GameObject> objectPool = new Queue<GameObject>();
     Queue<GameObject> effectPool = new Queue<GameObject>();
+
+    AsyncOperationHandle<GameObject> objectHandle;
+    AsyncOperationHandle<GameObject> effectHandle;
 
     void Awake()
     {
@@ -26,12 +31,18 @@ public class PoolManager : MonoBehaviour
     {
         Tile.TileTap += ReturnObject;
         Tile.TileTap += SetEffect;
+        // Load assets
+        objectHandle = Addressables.LoadAssetAsync<GameObject>(objectLabel);
+        effectHandle = Addressables.LoadAssetAsync<GameObject>(effectLabel);
     }
 
     void OnDisable()
     {
         Tile.TileTap -= ReturnObject;
         Tile.TileTap -= SetEffect;
+        // Unload assets
+        Addressables.Release(objectHandle);
+        Addressables.Release(effectHandle);
     }
 
     /*void Start()
@@ -54,7 +65,7 @@ public class PoolManager : MonoBehaviour
         }
 
         // Create new object
-        return Instantiate(objectPrefab);
+        return Instantiate(objectHandle.Result);
     }
 
     public void ReturnObject(GameObject obj)
@@ -74,7 +85,7 @@ public class PoolManager : MonoBehaviour
         else
         {
             // Create new object
-            effect = Instantiate(effectPrefab);
+            effect = Instantiate(effectHandle.Result);
         }
         effect.transform.position = obj.transform.position;
     }

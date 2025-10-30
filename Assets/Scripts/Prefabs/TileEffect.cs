@@ -18,12 +18,15 @@ public class TileEffect : MonoBehaviour
         startColor = GetComponent<SpriteRenderer>().color;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        transform.localScale = originalScale;
         GetComponent<SpriteRenderer>().color = startColor;
         StartCoroutine(TapFeedbackAndDisable());
+    }
+
+    void OnDisable()
+    {
+        transform.localScale = originalScale;
     }
 
     // Update is called once per frame

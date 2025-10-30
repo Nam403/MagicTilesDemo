@@ -1889,8 +1889,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d2e55f075ccd84595257064b4c555e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPrefab: {fileID: 7281853683346846034, guid: 646ce43ca4f382d4183b3d6c4fbf191c, type: 3}
-  effectPrefab: {fileID: 2155504105237302155, guid: ea1fb1dc6dcbd87458014acf08524a43, type: 3}
+  objectLabel:
+    m_LabelString: LabelTile
+  effectLabel:
+    m_LabelString: LabelTileEffect
   poolSize: 20
 --- !u!4 &761744435
 Transform:
