@@ -88,6 +88,14 @@ Assets/
 
 | |-- MainScene.unity
 
+|-- Materials/
+
+| |-- Laser.mat
+
+|-- Renderer/
+
+| |-- Lazer2D.shadergraph
+
 
 
 \## Contact
