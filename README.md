@@ -24,7 +24,7 @@
 * Implemented a simple beat detection technique to spawn tiles in sync with background music.
 * Used event/delegate to follow the Observer design pattern, enabling decoupled communication between components.
 * Integrated Object Pooling to efficiently reuse objects, improving performance.
-
+* Use Addressable to load resources dynamically.
 
 
 \## Reference:
