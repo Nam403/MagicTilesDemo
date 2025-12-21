@@ -25,6 +25,7 @@
 * Used event/delegate to follow the Observer design pattern, enabling decoupled communication between components.
 * Integrated Object Pooling to efficiently reuse objects, improving performance.
 * Use Addressable to load resources dynamically.
+* Apply Shader Graph for timing bar.
 
 
 \## Reference:
