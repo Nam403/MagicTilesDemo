@@ -13,6 +13,7 @@
 * Open Project: Clone or download this repository, then open it in Unity Hub.
 * Run the Scene: Can be run directly from the main scene or run indirectly from the menu scene.
 * Note: the test file is available at the link: https://drive.google.com/file/d/1K50tzIdNpnd3D3ZTZv7ALDMbUQSHpioK/view?usp=sharing
+* Video demo: https://www.youtube.com/shorts/BPlTO5EUBks
 
 
 
@@ -23,7 +24,7 @@
 * Implemented a simple beat detection technique to spawn tiles in sync with background music.
 * Used event/delegate to follow the Observer design pattern, enabling decoupled communication between components.
 * Integrated Object Pooling to efficiently reuse objects, improving performance.
-
+* Use Addressable to load resources dynamically.
 
 
 \## Reference:
